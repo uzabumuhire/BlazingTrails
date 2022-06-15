@@ -1,0 +1,31 @@
+﻿<div class="card shadow" style="width: 18rem;">
+    <img src="@Trail.Image" class="card-img-top" alt="@Trail.Name">
+    <div class="card-body">
+        <h5 class="card-title">@Trail.Name</h5>
+        <h6 class="card-subtitle mb-3 text-muted"><span class="oi oi-map-marker"></span> @Trail.Location</h6>
+        <div class="d-flex justify-content-between">
+            <span><span class="oi oi-clock mr-2"></span> @Trail.TimeFormatted</span>
+            <span><span class="oi oi-infinity mr-2"></span> @Trail.Length km</span>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    // We pass data into components via parameters, think of them as public API
+    // for a component and they work one way, from parent to child. We can
+    // define them in the code block by creating a public property and 
+    // decorating it with the [Parameter] attribute. We pass data into them
+    // from the parent using attributes on the component tag.
+    // The [EditorRequired] attribute is used to indicate that a parameter is 
+    // required and not optional. If we try to use the TrailCard component 
+    // without passing a trail to the Trail parameter, we will get a warning.
+    // Due to nullable reference types being enabled, we need to handle the 
+    // potential nullability of the parameter. There are two approaches for this, 
+    // mark the parameter as nullable (?) or give it a default value.
+    // The null forgiving operator (!) allows us to tell the compiler that a value
+    // isn't null or won't be null. It's very useful for situations where 
+    // the compiler can't work this out for itself.
+
+    [Parameter, EditorRequired] public Trail Trail { get; set; } = default!;
+}
