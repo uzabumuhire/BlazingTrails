@@ -1,7 +1,26 @@
 ﻿@page "/"
 
+@inject HttpClient Http
+
 <h3>HomePage</h3>
 
 @code {
+    // Make the _trails field nullable by using the ? operator
+    // to fix .NET 6 nullable references types (NRTs) compiler
+    // warnings.
+    private IEnumerable<Trail>? _trails;
 
+    protected override async Task OnInitializedAsync()
+    {
+        // The call is wrapped into try catch statement because when there is non-success code
+        // returned from the server, an exception of type HttpRequestException is thrown.
+        try
+        {
+            _trails = await Http.GetFromJsonAsync<IEnumerable<Trail>>("trails/trail-data.json");
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"There was a problem loading trail data: {ex.Message}");
+        }
+    }
 }
