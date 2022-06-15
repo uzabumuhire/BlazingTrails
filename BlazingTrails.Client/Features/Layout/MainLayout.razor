@@ -1,5 +1,13 @@
-﻿<h3>MainLayout</h3>
+﻿@inherits LayoutComponentBase
 
-@code {
+<!-- 
+    Reference to the Header component, note the capital H.
+    Component references are cases sensitive in Blazor and
+    should start with a capital letter to avoid collisions
+    with regular elements.
+-->
+<Header />
 
-}
+<main class="container mt-5 mb-5">
+    @Body
+</main>
